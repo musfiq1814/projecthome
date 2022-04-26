@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:projecthome/ad/post_ad.dart';
 import 'package:projecthome/ad/show_ad.dart';
 import 'package:projecthome/screens/login_screen.dart';
+import 'package:projecthome/screens/user_info.dart';
 
 import '../model/user_model.dart';
 
@@ -63,14 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 200,
                 child: Image.asset("assets/home_icon_2"),),
 
-              Text("Welcome Back",
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black
-                ),
-              ),
-
+              /*
               Text("${loggedInUser.fname} ${loggedInUser.lname}",
                 style: TextStyle(
                     fontSize: 20,
@@ -102,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.greenAccent
                 ),
               ),
-
+               */
               SizedBox(height: 20),
 
               ElevatedButton(onPressed: () {
@@ -115,13 +109,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),)),
 
               ElevatedButton(onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> showAd()));
+                //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> showAd(userId: loggedInUser.uid)));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> showAd(userId: loggedInUser.uid)));
               } , child: Text("Show Add",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w900,
                     color: Colors.greenAccent
                 ),)),
+
+              ElevatedButton(onPressed: () {
+
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> User_Info()));
+
+
+
+              } , child: Text("User Info",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.greenAccent
+                ),)),
+
 
 
 
