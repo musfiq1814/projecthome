@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:projecthome/ad/post_ad.dart';
+import 'package:projecthome/ad/show_ad.dart';
 import 'package:projecthome/screens/login_screen.dart';
 
 import '../model/user_model.dart';
@@ -41,15 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(
-        title: Text("Home App",
-          style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w900,
-              color: Colors.greenAccent
-          ),
-        ),
-      ),
+      appBar: _appBar(),
 
 
       body: Center(
@@ -101,11 +95,45 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
 
+              Text("${loggedInUser.uid}",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.greenAccent
+                ),
+              ),
 
+              SizedBox(height: 20),
+
+              ElevatedButton(onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> postAd()));
+              } , child: Text("Post Add",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.greenAccent
+                ),)),
+
+              ElevatedButton(onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> showAd()));
+              } , child: Text("Show Add",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.greenAccent
+                ),)),
+
+
+
+              /*
               ActionChip(label: Text("logout"), onPressed: (){
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
 
+
+
               }),
+
+               */
 
 
             ],
@@ -120,7 +148,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
     );
   }
+
+  Future<void> logout(BuildContext context) async{
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => LoginScreen())
+    );
+  }
+
+  _appBar()
+  {
+    final h = AppBar().preferredSize.height;
+    return PreferredSize(
+        child: AppBar(title: const Text("Profile"),
+          actions:
+          [IconButton(
+              onPressed: (){
+                logout(context);
+              },
+              icon: Icon(Icons.logout))],
+        ),
+        preferredSize:Size.fromHeight(h)
+    );
+  }
+
+
+
+
 }
+
 
 
 /*
