@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:projecthome/screens/home_screen.dart';
 import 'package:projecthome/screens/login_screen.dart';
 
 
@@ -214,7 +215,9 @@ class _RegScreenState extends State<RegScreen> {
       child: MaterialButton(
 
 
-        onPressed: (){},
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        },
 
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -289,7 +292,7 @@ class _RegScreenState extends State<RegScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(height: 10),
-                        Text("Don't have an account ? ",style: TextStyle(
+                        Text("Already have an account ? ",style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16
                         ),),

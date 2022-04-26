@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:projecthome/screens/home_screen.dart';
 import 'package:projecthome/screens/registration_screen.dart';
 
 
@@ -93,7 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
 
 
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        },
 
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
