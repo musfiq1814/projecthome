@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 20),
 
               ElevatedButton(onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> postAd()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> postAd(userId: loggedInUser.uid)));
               } , child: Text("Post Add",
                 style: TextStyle(
                     fontSize: 20,
