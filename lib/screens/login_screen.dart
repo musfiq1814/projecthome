@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:projecthome/screens/registration_screen.dart';
 
 
 
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.blueAccent,
+      color: Colors.white,
       child: MaterialButton(
 
 
@@ -101,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,
-            color: Colors.white,
+            color: Colors.blue,
             fontWeight: FontWeight.bold
           ),
         ),
@@ -140,11 +141,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 50),
                         Text("Don't have an account ? ",style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 14
+                            fontSize: 16
                         ),),
                         SizedBox(height: 5),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RegScreen()));
+                          },
                           child: Text(
                             "SignUp",
                             style: TextStyle(
