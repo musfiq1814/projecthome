@@ -1,7 +1,11 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:projecthome/model/user_model.dart';
 import 'package:projecthome/screens/home_screen.dart';
 import 'package:projecthome/screens/login_screen.dart';
 
@@ -14,6 +18,8 @@ class RegScreen extends StatefulWidget {
 }
 
 class _RegScreenState extends State<RegScreen> {
+
+  final _auth = FirebaseAuth.instance;
 
   //form key
 
@@ -44,7 +50,23 @@ class _RegScreenState extends State<RegScreen> {
       autofocus: false,
       controller: fnameController,
       keyboardType: TextInputType.text,
-      //validator: (){},
+      validator: (value){
+
+        RegExp regex = new RegExp(r'^.{3,}$');
+
+        if(value!.isEmpty)
+        {
+          return ("First Name cannot be empty");
+        }
+        if(!regex.hasMatch(value))
+        {
+          return ("Please return a valid email min 3 char");
+        }
+
+        return null;
+
+
+      },
       onSaved: (value){
         fnameController.text = value!;
       },
@@ -72,7 +94,18 @@ class _RegScreenState extends State<RegScreen> {
       autofocus: false,
       controller: lnameController,
       keyboardType: TextInputType.text,
-      //validator: (){},
+      validator: (value){
+        RegExp regex = new RegExp(r'^.{3,}$');
+
+        if(value!.isEmpty)
+        {
+          return ("Second Name cannot be empty");
+        }
+
+
+
+
+      },
       onSaved: (value){
         lnameController.text = value!;
       },
@@ -101,7 +134,24 @@ class _RegScreenState extends State<RegScreen> {
       autofocus: false,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
-      //validator: (){},
+      validator: (value){
+        if(value!.isEmpty){
+          return ("please Enter Your Email");
+        }
+
+        // reg expression for email validation
+
+        if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value))
+        {
+          return ("Please return a valid email");
+        }
+
+
+        return null;
+
+
+
+      },
       onSaved: (value){
         emailController.text = value!;
       },
@@ -131,7 +181,18 @@ class _RegScreenState extends State<RegScreen> {
       controller: contactController,
       keyboardType: TextInputType.phone,
 
-      //validator: (){},
+      validator: (value){
+        if(value!.isEmpty){
+          return ("please Enter Your Contact");
+        }
+
+
+
+        return null;
+
+
+
+      },
       onSaved: (value){
         contactController.text = value!;
       },
@@ -161,7 +222,22 @@ class _RegScreenState extends State<RegScreen> {
         controller: passwordController,
         obscureText: true,
 
-        //validator: (){},
+        validator: (value){
+
+          RegExp regex = new RegExp(r'^.{6,}$');
+
+          if(value!.isEmpty)
+          {
+            return ("Password Field cannot be empty");
+          }
+
+          if(!regex.hasMatch(value))
+          {
+            return("Please enter Minimum 6 char");
+          }
+
+
+        },
         onSaved: (value){
           passwordController.text = value!;
         },
@@ -183,12 +259,22 @@ class _RegScreenState extends State<RegScreen> {
 
     final confirmpasswordfield = TextFormField(
         autofocus: false,
-        controller: passwordController,
+        controller: confirmPasswordController,
         obscureText: true,
 
-        //validator: (){},
+        validator: (value){
+
+          if(passwordController.text != confirmPasswordController.text ){
+
+            return "password don't match";
+          }
+          else{
+            return null;
+          }
+
+        },
         onSaved: (value){
-          passwordController.text = value!;
+          confirmPasswordController.text = value!;
         },
 
         textInputAction: TextInputAction.done,
@@ -216,7 +302,8 @@ class _RegScreenState extends State<RegScreen> {
 
 
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          signUp(emailController.text, passwordController.text);
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
         },
 
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -326,4 +413,67 @@ class _RegScreenState extends State<RegScreen> {
       ),
     );
   }
+
+  void signUp(String email, String password) async{
+    if(_formkey.currentState!.validate()){
+
+
+      await _auth.createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => postDetailstoFireStore(),
+
+      ).catchError((e)
+          {
+            Fluttertoast.showToast(msg: e!.toString());
+          }
+
+      );
+    }
+
+  }
+
+
+  postDetailstoFireStore() async{
+
+    //calling firestore
+
+    //calling model
+
+    //sending value
+
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+
+    User? user = _auth.currentUser;
+
+
+
+    BestUser bestuser = BestUser();
+
+
+    bestuser.email = user!.email;
+    bestuser.uid = user.uid;
+    bestuser.fname= fnameController.text;
+    bestuser.lname = lnameController.text;
+    bestuser.contact = contactController.text;
+
+    
+    await firebaseFirestore
+    .collection("users")
+    .doc(user.uid)
+    .set(bestuser.toMap());
+    
+    Fluttertoast.showToast(msg: "Account created successfully");
+    
+    
+    Navigator.pushAndRemoveUntil(
+        (context),
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false);
+
+
+  }
+
+
+
 }
