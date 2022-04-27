@@ -22,7 +22,6 @@ class _showAdState extends State<showAd> {
     return Scaffold(
 
       appBar: AppBar(title: const Text("Your Image"),
-        /*
         actions:
         [
           IconButton(
@@ -33,8 +32,6 @@ class _showAdState extends State<showAd> {
                 //Navigator.pop(context);
               },
               icon: Icon(Icons.arrow_back))],
-
-         */
 
       ),
 
@@ -51,7 +48,7 @@ class _showAdState extends State<showAd> {
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
-                    String url = snapshot.data!.docs[index]['downloadURL'];
+                    String url = snapshot.data!.docs[index]['downlodURL'];
                     print(url);
                     return Image.network( url, height: 300, fit: BoxFit.cover, );
               });

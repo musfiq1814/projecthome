@@ -109,8 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),)),
 
               ElevatedButton(onPressed: () {
-                //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> showAd(userId: loggedInUser.uid)));
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> showAd(userId: loggedInUser.uid)));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> showAd(userId: loggedInUser.uid)));
+                //Navigator.push(context, MaterialPageRoute(builder: (context)=> showAd(userId: loggedInUser.uid)));
               } , child: Text("Show Add",
                 style: TextStyle(
                     fontSize: 20,
