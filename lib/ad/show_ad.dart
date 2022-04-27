@@ -9,8 +9,10 @@ class showAd extends StatefulWidget {
 
   String? userId;
 
+  String? userName;
 
-  showAd({Key? key, this.userId}) : super(key: key);
+
+  showAd({Key? key, this.userId, this.userName}) : super(key: key);
 
   @override
   State<showAd> createState() => _showAdState();
@@ -81,8 +83,11 @@ class _showAdState extends State<showAd> {
                           child: Image.network( url, height: 300, fit: BoxFit.cover, ),
                         ),
 
+                        SizedBox(height: 10),
+
                         Row(
                           children: [
+
 
                             Text("Title : ",
                               style: TextStyle(
@@ -240,7 +245,6 @@ class _showAdState extends State<showAd> {
                                   color: Colors.black
                               ),
                             ),
-
                             Text("${userID}",
                               style: TextStyle(
                                   fontSize: 12,
@@ -248,6 +252,7 @@ class _showAdState extends State<showAd> {
                                   color: Colors.greenAccent
                               ),
                             ),
+
 
 
 
