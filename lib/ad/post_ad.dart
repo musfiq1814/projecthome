@@ -114,6 +114,7 @@ class _postAdState extends State<postAd> {
       'bath': bathController.text,
       'varanda': varandaController.text,
       'location': locationController.text,
+      'userID': widget.userId,
     }).whenComplete(() => showSnackBar("Uploaded SUccessfully", Duration(seconds: 2)));
 
 
