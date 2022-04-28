@@ -24,9 +24,12 @@ class User_Info extends StatefulWidget {
 class _User_InfoState extends State<User_Info> {
 
 
-  User? user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser; // firebase loggedin usermodel
 
-  BestUser loggedInUser= BestUser();
+  BestUser loggedInUser= BestUser(); // local usermodel
+
+
+  // mapping firebase model into local usermodel
 
   @override
   void initState()
@@ -39,6 +42,7 @@ class _User_InfoState extends State<User_Info> {
         .then(
 
             (value){
+
           this.loggedInUser = BestUser.fromMap(value.data());
 
           setState(() { });
@@ -51,7 +55,6 @@ class _User_InfoState extends State<User_Info> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
 
         title: const Text("Profile"),
@@ -83,7 +86,6 @@ class _User_InfoState extends State<User_Info> {
               SizedBox(
                 height: 200,
                 child: Image.asset("assets/home_icon_2"),),
-
 
               Text("Name: ${loggedInUser.fname} ${loggedInUser.lname}",
                 style: TextStyle(

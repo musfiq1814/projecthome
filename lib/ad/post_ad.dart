@@ -72,6 +72,9 @@ class _postAdState extends State<postAd> {
 
   Future ImagePickerMethod() async{
 
+
+
+
     final pick = await imagepicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
@@ -254,6 +257,8 @@ class _postAdState extends State<postAd> {
 
 
       },
+
+
       onSaved: (value){
         bedController.text = value!;
       },
@@ -452,6 +457,7 @@ class _postAdState extends State<postAd> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+
 
                               titlefield,
                               SizedBox(height: 5),

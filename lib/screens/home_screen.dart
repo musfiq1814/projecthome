@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
   {
     final h = AppBar().preferredSize.height;
     return PreferredSize(
-        child: AppBar(title: const Text("Profile"),
+        child: AppBar(title: const Text("Home App"),
           actions:
           [IconButton(
               onPressed: (){

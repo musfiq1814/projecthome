@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projecthome/screens/example of dart widget1.dart';
 import 'package:projecthome/screens/login_screen.dart';
 
 Future<void>main() async{
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Home App ',
       theme: ThemeData(
@@ -30,5 +32,6 @@ class MyApp extends StatelessWidget {
       ),
       home: LoginScreen(),
     );
+
   }
 }
